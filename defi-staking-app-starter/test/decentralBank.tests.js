@@ -1,7 +1,7 @@
 //const { assert } = require('console');
 
-const { tokenToString } = require('typescript');
-const { default: Web3 } = require('web3');
+//const { tokenToString } = require('typescript');
+//const { default: Web3 } = require('web3');
 
 const Tether = artifacts.require('Tether');
 const RWD = artifacts.require('RWD');
@@ -14,11 +14,11 @@ require('chai')
 contract('DecentralBank', ([owner, customer]) => {
     // Code for testing goes in here
     let tether, rwd, decentralBank
-    /*
+    
     function tokens(number) {
-        return Web3.utils.toWei(number,'ether')
+        return web3.utils.toWei(number,'ether')
     }
-*/
+
     before(async () => {
         // Load contracts
         tether = await Tether.new() 
@@ -26,10 +26,10 @@ contract('DecentralBank', ([owner, customer]) => {
         decentralBank = await DecentralBank.new(rwd.address, tether.address)
 
         // Transfer all tokens to DecentalBrank (1 million)
-        await rwd.transfer(decentralBank.address, Web3.utils.toWei('1000000','ether'))
+        await rwd.transfer(decentralBank.address, tokens('1000000'))
 
         // Transfer 100 mock tethers to Investor
-        await tether.transfer(customer, Web3.utils.toWei('100','ether'), {from: owner})
+        await tether.transfer(customer, tokens('100'), {from: owner})
     })
 
     describe('Mock Tether Deployment', async () => {
