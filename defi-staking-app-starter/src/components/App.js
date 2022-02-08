@@ -1,11 +1,15 @@
 import React, {Component} from "react";
+import Navbar from "./Navbar";
 
 class App extends Component{
 
     render(){
         return (
             <div>
-                <h1>Hello World</h1>
+                <Navbar/>
+                <div className="text-center">
+                    <h1>Hello orld</h1>
+                </div>
             </div>
         )
     }
