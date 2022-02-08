@@ -1,8 +1,3 @@
-//const { assert } = require('console');
-
-//const { tokenToString } = require('typescript');
-//const { default: Web3 } = require('web3');
-
 const Tether = artifacts.require('Tether');
 const RWD = artifacts.require('RWD');
 const DecentralBank = artifacts.require('DecentralBank');
@@ -45,5 +40,17 @@ contract('DecentralBank', ([owner, customer]) => {
             assert.equal(name,'Reward Token' )
         })
     })
+
+    describe('DecentralBank Deployment', async () => {
+        it('matches name successfully', async () => {
+            const name = await decentralBank.name()
+            assert.equal(name,'Decentral Bank' )
+        })
+
+        it('contract has tokens', async () => {
+            let balance = await rwd.balanceOf(decentralBank.address)
+            assert.equal(balance,tokens('1000000'))
+        })
+    }) 
    
 })
