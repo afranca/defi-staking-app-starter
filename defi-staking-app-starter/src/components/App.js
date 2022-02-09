@@ -6,6 +6,7 @@ class App extends Component{
 
     async UNSAFE_componentWillMount(){
         await this.loadWeb3()
+        await this.loadBlockchainData()
     }
 
     async loadWeb3(){
@@ -19,6 +20,11 @@ class App extends Component{
         }
     }
 
+    async loadBlockchainData(){
+        const web3 = window.web3
+        const account = await web3.eth.getAccounts()
+        console.log(account)
+    }
     constructor(props){
         super(props)
         this.state = {
