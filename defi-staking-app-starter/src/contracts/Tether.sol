@@ -12,6 +12,11 @@ contract Tether {
         uint _value
     );
 
+    event Approval(
+        address indexed _owner,
+        address indexed _spender,
+        uint _value
+    );
     // Holds balances of all accounts
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -28,6 +33,12 @@ contract Tether {
         // add the balance to target account
         balanceOf[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
+        return true;
+    }
+
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
