@@ -14,6 +14,7 @@ contract Tether {
 
     // Holds balances of all accounts
     mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
 
     constructor() public {
         balanceOf[msg.sender] = totalSupply;
@@ -27,6 +28,20 @@ contract Tether {
         // add the balance to target account
         balanceOf[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
+        return true;
+    }
+
+    function transferFrom(address _from,address _to, uint256 _value) public returns (bool success) {
+        // require that the value is greater or equal for transfer
+        require(_value <= balanceOf[_from], "Value is greater than Balance");
+        require(_value <= allowance[_from][msg.sender], "Value is greater than Allowance");
+        // add the balance to target account
+        balanceOf[_to] += _value;
+        // transfer the amount and subtract the balance from origin account
+        balanceOf[_from] -= _value;
+        // I dont fully understand this
+        allowance[msg.sender][_from] -= _value;
+        emit Transfer(_from, _to, _value);
         return true;
     }
 }
