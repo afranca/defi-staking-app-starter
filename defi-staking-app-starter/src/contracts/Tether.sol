@@ -50,8 +50,8 @@ contract Tether {
         balanceOf[_to] += _value;
         // transfer the amount and subtract the balance from origin account
         balanceOf[_from] -= _value;
-        // I dont fully understand this
-        allowance[msg.sender][_from] -= _value;
+        //Now I think I understand this
+        allowance[_from][msg.sender] -= _value;
         emit Transfer(_from, _to, _value);
         return true;
     }
