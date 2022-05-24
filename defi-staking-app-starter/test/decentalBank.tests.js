@@ -82,8 +82,15 @@ contract('DecentralBank', ([owner, customer]) => {
             
             // Check if Customer is Staking  
             let isStaking = await decentralBank.isStaking(customer)
-            assert.isTrue(isStaking,'Customer is Staking')            
+            assert.isTrue(isStaking,'Customer is Staking') 
             
+            //Issue Rewards to stake holders
+            await decentralBank.issueTokens({from: owner})
+            //result = await rwd.balanceOf(customer)
+            //assert.equal(result.toString(),tokens('11'),'Reward balance from staking' )            
+
+            // Ensure only owner can Issue tokens
+            await decentralBank.issueTokens({from: customer}).should.be.rejected; 
 
         })        
     })
