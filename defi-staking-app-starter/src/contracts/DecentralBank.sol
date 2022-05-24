@@ -56,12 +56,12 @@ contract DecentralBank {
         // Update staking balance
         isStaking[msg.sender] = false;
    }
-   
+
     //Rewards stakers
     function issueTokens() public {
         require(msg.sender == owner, 'Must be owner to issue tokens');
 
-        for(uint i=0; i<stakers.length; i++){
+        for(uint i = 0; i<stakers.length; i++){
             address recepient = stakers[i];
             uint balance = stakingBalance[recepient]/9; // divide per 9
             if (balance > 0){
