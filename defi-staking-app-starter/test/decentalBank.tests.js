@@ -52,7 +52,7 @@ contract('DecentralBank', ([owner, customer]) => {
             const name = await decentralBank.name()
             assert.equal('Decentral Bank', name)
         })
-        it('matches inital Rewards successfully', async () => {
+        it('contract has tokens', async () => {
             const balance = await rwd.balanceOf(decentralBank.address)
             assert.equal(tokens('1000000'), balance)
         })    
