@@ -78,7 +78,12 @@ contract('DecentralBank', ([owner, customer]) => {
 
             // Check updated balance of Decental Bank
             result = await tether.balanceOf(decentralBank.address)
-            assert.equal(result.toString(),tokens('100'),'Decentral Bank balance after staking' )            
+            assert.equal(result.toString(),tokens('100'),'Decentral Bank balance after staking' )   
+            
+            // Check if Customer is Staking  
+            let isStaking = await decentralBank.isStaking(customer)
+            assert.isTrue(isStaking,'Customer is Staking')            
+            
 
         })        
     })
