@@ -1,8 +1,40 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar'
 import './App.css'
+import Web3 from 'web3';
 
 class App extends Component {
+
+  // This is some sort of Setup() method, which runs
+  // before aything gets rendered.
+  async UNSAFE_componentWillMount() {
+    //Load Metamask
+    await this.loadWeb3()
+    //Load Blockchain
+    await this.loadBlockchainData()
+  }
+
+  // This is how you hook it up with Metamask (Provided by Metamask)
+  async loadWeb3() {
+    if(window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non ethereum browser detected. You should consider Metamask!')
+    }
+  }
+
+  async loadBlockchainData() {
+    const web3 = window.web3
+    const accounts = await web3.eth.getAccounts()
+    console.log(accounts)
+    //this.setState({account: accounts[0]})
+    //const networkId = await web3.eth.net.getId()  
+  }
 
   constructor(props) {
     super(props)
