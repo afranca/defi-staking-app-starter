@@ -3,11 +3,10 @@ pragma solidity ^0.5.0;
 contract Tether {
     string public name = 'Mock Tether Token';
     string public symbol = 'mUSDT';
-    uint256 public totalSupply = 1000000000000000000000000;
-    //uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
+    uint256 public totalSupply = 1000000000000000000000000; //supposed to be 1 million
     uint8 public decimals = 18;
 
-     event Transfer(
+    event Transfer(
         address indexed _from,
         address indexed _to,
         uint _value
@@ -18,7 +17,7 @@ contract Tether {
         address indexed _spender,
         uint _value
     );
-
+    // Holds balances of all accounts
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
@@ -29,9 +28,9 @@ contract Tether {
     function transfer(address _to, uint256 _value) public returns (bool success) {
         // require that the value is greater or equal for transfer
         require(balanceOf[msg.sender] >= _value,"required balance out of bounds");
-         // transfer the amount and subtract the balance
+        // transfer the amount and subtract the balance from origin account
         balanceOf[msg.sender] -= _value;
-        // add the balance
+        // add the balance to target account
         balanceOf[_to] += _value;
         emit Transfer(msg.sender, _to, _value);
         return true;
@@ -44,15 +43,16 @@ contract Tether {
     }
 
     function transferFrom(address _from,address _to, uint256 _value) public returns (bool success) {
+        // require that the value is greater or equal for transfer
         require(_value <= balanceOf[_from], "Value is greater than Balance");
         require(_value <= allowance[_from][msg.sender], "Value is greater than Allowance");
-        // add the balance
+        // add the balance to target account
         balanceOf[_to] += _value;
-        // subtract the balance
+        // transfer the amount and subtract the balance from origin account
         balanceOf[_from] -= _value;
-        // I dont fully understand this
-        allowance[msg.sender][_from] -= _value;
-        emit Transfer(msg.sender, _to, _value);
+        //Now I think I understand this
+        allowance[_from][msg.sender] -= _value;
+        emit Transfer(_from, _to, _value);
         return true;
     }
 }
