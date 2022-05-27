@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import './App.css'
 import Web3 from 'web3';
 import Tether from '../truffle_abis/Tether.json'
+import RWD from '../truffle_abis/RWD.json'
+import DecentralBank from '../truffle_abis/DecentralBank.json'
 
 class App extends Component {
 
@@ -48,7 +50,29 @@ class App extends Component {
       window.alert("tether contract not deployed to detect network")
     }
 
+    //LOAD RWD TOKEN
+    const rwdTokenData = RWD.networks[networkId]
+    if(rwdTokenData) {
+      const rwd = new web3.eth.Contract(RWD.abi, rwdTokenData.address)
+      this.setState({RWD})
+      let rwdTokenBalance = await rwd.methods.balanceOf(this.state.account).call()
+      this.setState({ rwdTokenBalance: rwdTokenBalance.toString()})
+    } else {
+      window.alert("Reward Token contract not deployed to detect network")
+    }
 
+    //Load DecentralBank
+    const decentralBankData = DecentralBank.networks[networkId]
+    if(decentralBankData) {
+      const decentralBank = new web3.eth.Contract(DecentralBank.abi, decentralBankData.address)
+      this.setState({decentralBank})
+      let stakingBalance = await decentralBank.methods.stakingBalance(this.state.account).call()
+      this.setState({ stakingBalance: stakingBalance.toString()})
+    } else {
+      window.alert("Token Form contract not deployed to detect network")
+    }
+
+    this.setState({loading: false})
   }
 
   constructor(props) {
