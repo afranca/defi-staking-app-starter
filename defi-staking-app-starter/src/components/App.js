@@ -81,7 +81,7 @@ class App extends Component {
     this.state.tether.methods.approve(this.state.decentralBank._address, amount).send({from: this.state.account}).on('transactionHash', (hash) => {
       this.state.decentralBank.methods.depositTokens(amount).send({from: this.state.account}).on('transactionHash', (hash) => {
         this.setState({loading:false})
-      })ß
+      })
     }) 
   }
 
