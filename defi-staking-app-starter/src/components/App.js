@@ -46,7 +46,7 @@ class App extends Component {
       this.setState({tether})
       let tetherBalance = await tether.methods.balanceOf(this.state.account).call()
       this.setState({ tetherBalance: tetherBalance.toString()})
-      console.log({balance: tetherBalance})
+      //console.log({balance: tetherBalance})
     } else { 
       window.alert("tether contract not deployed to detect network")
     }
@@ -92,15 +92,27 @@ class App extends Component {
   }
 
   render() {
-    return (
-      
-      <div  className="App" style={{ position: 'relative'}}>
+    let content
+    console.log('tetherBalance: '+this.state.tetherBalance)
+
+    {this.state.loading ? content = <p id="loader" className='text-center' style={{color:'white', margin:'30px'}}>Loading ... </p> 
+    : content =<Main
+    tetherBalance={this.state.tetherBalance}
+    rwdBalance={this.state.rwdTokenBalance}
+    stakingBalance={this.state.stakingBalance}
+    stakeTokens={this.stakeTokens}
+    unstakeTokens={this.unstakeTokens}
+    decentralBankContract={this.decentralBank}
+    />}
+    
+    return (      
+      <div  className="App" style={{position: 'relative'}}>
         <Navbar account={this.state.account}/>
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px', minHeight: '100vm'}}>
               <div>
-                <Main/>
+                {content}
               </div>
             </main>
         </div>
