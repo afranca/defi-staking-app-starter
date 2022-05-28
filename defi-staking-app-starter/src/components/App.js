@@ -5,6 +5,7 @@ import Web3 from 'web3';
 import Tether from '../truffle_abis/Tether.json'
 import RWD from '../truffle_abis/RWD.json'
 import DecentralBank from '../truffle_abis/DecentralBank.json'
+import Main from './Main.js'
 
 class App extends Component {
 
@@ -99,7 +100,7 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px', minHeight: '100vm'}}>
               <div>
-                Hello World
+                <Main/>
               </div>
             </main>
         </div>
