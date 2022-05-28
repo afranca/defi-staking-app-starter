@@ -1,13 +1,13 @@
-# defi-staking-app-starter
+# defi-staking-app
 
-## To download me simply open up the terminal and run: 
+This code has been revesed engineered from Greg DAPPuniversity.com, by  [Clarian North](https://www.youtube.com/watch?v=RnKSA-51kpI) 
 
-git clone https://github.com/01Clarian/defi-staking-app-starter.git
+## Requirements: You need to have these installed, configured and running
+ - Ganache 
+ - Metamask
+ - Node.js
 
-This code has been revesed engineered from Greg DAPPuniversity.com! If you enjoyed this course go check out his work ;) 
-Please feel free to clone and style this project at your own discretion!
-
-## 1 To Clone or download this project simply run: 
+### 1. To Clone a vanilla version of this app (skeleton) from Clarian repo: 
 
 git clone - https://github.com/01Clarian/defi-staking-app-starter.git
 
@@ -15,9 +15,12 @@ git clone - https://github.com/01Clarian/defi-staking-app-starter.git
 
 npm install
 
-### 4. Make sure truggle -g is installed
+### 3. Start the App
+npm run start (to start the app)
 
-# use truffle compiile 
+### 4. Make sure truffle -g is installed
+
+# use truffle compile 
 (compile contracts)
 
 # use truffle migrate --reset 
