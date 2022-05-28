@@ -3,7 +3,7 @@ import tetherImg from '../tether.png'
 
 class Main extends Component {
     render() {
-        //console.log('tetherBalance: '+this.props.tetherBalance)
+        console.log('tetherBalance: '+this.props.tetherBalance)
         return (
             <div id='content' className='mt-3'>
                 <table className='table text-muted text-center'>
@@ -22,7 +22,14 @@ class Main extends Component {
                 </table>    
 
                 <div className='card mb-2'style={{opacity:'.9'}}>
-                <form                    
+                <form      
+                    onSubmit={(event) => {
+                        event.preventDefault()
+                        let amount
+                        amount = this.input.value.toString()
+                        amount = window.web3.utils.toWei(amount, 'Ether')
+                        this.props.stakeTokens(amount)
+                    }}                              
                     className='mb-3'>
                         <div style={{borderSpacing:'0 1em'}}>
                             <label className='float-left' style={{marginLeft:'15px'}}><b>Stake Tokens</b></label>
@@ -31,7 +38,7 @@ class Main extends Component {
                             </span>
                             <div className='input-group mb-4'>
                                 <input
-                                
+                                ref={(input)=> {this.input = input} } 
                                 type='text'
                                 placeholder='0'
                                 required />
